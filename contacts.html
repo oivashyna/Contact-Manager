@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>Contact Manager</title>
+
+        <link rel="stylesheet" href="css/contacts.css">
+    </head>
+
+    <body>
+        <div id="box1">
+
+            <!-- For an img -->
+            <div id="left-picture-box">
+                <img src="">
+            </div>
+
+            <div id="right-text-box">
+                <!-- 
+                    Holds search bar and add button
+                    Add button may not get implemented in time, hence the temporary edit-table div
+                -->
+                <div id="navigation-box">
+                    <div id="search-box">
+                        <input type="text" name="search-area" id="contact-search" placeholder="Search">
+                    </div>
+                    <a href="#">
+                        <div id="add-box">Add</div>
+                    </a>
+                </div>
+
+                <!-- Holds the table with an example row of data -->
+                <div class="contacts-table" id="contacts-table-box">
+                    <div class="table-content" id="contacts-table">
+                        <table id="contacts">
+                            <thead id="table-head">
+                                <th>First</th>
+                                <th>Last</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                            </thead>
+                            <tbody id="table-body">
+                                <tr>
+                                    <td>Joe</td>
+                                    <td>Smith</td>
+                                    <td>joesmith@gmail.com</td>
+                                    <td>1111111111</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="edit-table">
+                    <input type="text" name="first-name" id="first-name" placeholder="First Name">
+                    <input type="text" name="last-name" id="last-name" placeholder="Last Name">
+                    <input type="text" name="email" id="email" placeholder="Email">
+                    <input type="text" name="phone" id="phone" placeholder="Phone Number">
+                    <button>Update</button>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>
