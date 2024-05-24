@@ -9,23 +9,40 @@ body
     width: 100%;
     margin: 2% 5%;
     text-align: center;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: Georgia, sans-serif;
     color: #FFFFFF;
 }
 
 #loginDiv
 {
     font-size: 30px;
-    width: 70%;
+    width: 40%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
+    font-family: Georgia, sans-serif;
+    background-color: rgba(178,178,178, .2);
+    position: absolute;
+    top: 240px; left: -80px;
+    
+}
+
+#registerDiv
+{
+    font-size: 30px;
+    width: 40%;
+    margin-left: 15%;
+    padding: 25px;
+    font-family: Georgia, sans-serif;
+    background-color: rgba(178,178,178, .2);
+    position: absolute;
+    top: 240px; left: -80px;
+    
 }
 
 #loggedInDiv
 {
     font-size: 30px;
-    width: 70%;
+    width: 30%;
     margin-left: 15%;
     padding: 25px;
     background-color: #b2b2b2;
@@ -46,7 +63,7 @@ body
     border-radius: 25px;
     width: 50%;
     margin-left: 25%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: Georgia, sans-serif;
 }
 
 .buttons:hover{
@@ -74,11 +91,11 @@ body
 
 input[type="text"],input[type="password"]{
     border-radius: 25px;
-    text-align: center;
+    text-align: left;
     width: 80%;
     margin-left: 10%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: Georgia, sans-serif;
 }
 
 #inner-title{
@@ -88,8 +105,15 @@ input[type="text"],input[type="password"]{
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    font-family: Georgia, sans-serif;
+    color: #610464;
+}
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 #loginResult{
@@ -99,7 +123,18 @@ input[type="text"],input[type="password"]{
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: Georgia, sans-serif;
+    color: #95060a;
+}
+
+#registerResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: Georgia, sans-serif;
     color: #95060a;
 }
 
@@ -120,14 +155,14 @@ select{
     margin-left: 35%;
     margin-top: 2%;
     font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: Georgia, sans-serif;
 }
 
-#colorSearchResult{
+#contactSearchResult{
     display: none;
 }
 
-#colorAddResult{
+#contactAddResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
@@ -135,6 +170,6 @@ select{
     margin-left: 5%;
     margin-top: 2%;
     margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: Georgia, sans-serif;
     color: #95060a;
 }
