@@ -65,11 +65,27 @@ body
     margin-left: 25%;
     font-family: Georgia, sans-serif;
 }
+.git{
+    font-size: 30px;
+    border-radius: 25px;
+    margin-left: 25%;
+    font-family: Georgia, sans-serif;}
+
 
 .buttons:hover{
     background-color: #00d5124f;
     color: #FFFFFF;
     opacity: 50%;
+}
+
+#firstName
+{
+	font-size: 30px;
+}
+
+#lastName
+{
+	font-size: 30px;
 }
 
 #loginName
