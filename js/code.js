@@ -81,7 +81,7 @@ function doRegister()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				document.getElementById("registerResult").innerHTML = "User has been registered";
-				window.location.href = "index.html";
+				window.location.href = "contacts.html";
 			}
 		};
 		xhr.send(jsonPayload);
