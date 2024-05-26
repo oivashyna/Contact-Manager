@@ -1,11 +1,15 @@
 <?php
-
 	$inData = getRequestInfo();
+
+    $servername = "localhost"; 
+    $serverUser = "TheBeast"; 
+    $serverPass = "WeLoveCOP4331"; 
+    $dbname = "ContactManager";
 	
 	$searchResults = "";
 	$searchCount = 0;
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
+    $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
@@ -13,8 +17,8 @@
 	else
 	{
 		$stmt = $conn->prepare("select Name from Contacts where Name like ? and UserID=?");
-		$colorName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ss", $colorName, $inData["userId"]);
+		$contactName = "%" . $inData["search"] . "%";
+		$stmt->bind_param("ss", $contactName, $inData["userId"]);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
