@@ -2,8 +2,8 @@
 	$inData = getRequestInfo();
 
     $servername = "localhost"; 
-    $username = "username"; // TODO Needs to be changed
-    $password = "password"; // TODO Needs to be changed
+    $serverUser = "TheBeast"; 
+    $serverPass = "WeLoveCOP4331"; 
     $dbname = "ContactManager";
 
 	$phoneNumber = $inData["phoneNumber"];
@@ -13,7 +13,7 @@
 	$id = $inData["id"];
 
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 		if ($conn->connect_error)
 		{
 			returnWithError( $conn->connect_error );

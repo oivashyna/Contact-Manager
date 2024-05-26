@@ -2,12 +2,17 @@
 <?php
 
 	$inData = getRequestInfo();
+
+    $servername = "localhost"; 
+    $serverUser = "TheBeast"; 
+    $serverPass = "WeLoveCOP4331"; 
+    $dbname = "ContactManager";
 	
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
 
-	$conn = new mysqli("localhost", "", "", "ContactManager"); 	
+    $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 	if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );
