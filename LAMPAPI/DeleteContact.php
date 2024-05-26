@@ -17,7 +17,7 @@
 	} 
 	else 
     {
-        $stmt = $conn->prepare("DELETE FROM Contacts (FirstName, LastName, UserID) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("DELETE FROM Contacts (FirstName, LastName, UserID) VALUES (?,?,?)");
         $stmt->bind_param("sss", $firstName, $lastName, $userId);
 		$stmt->execute();
 		$stmt->close();
