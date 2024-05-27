@@ -1,7 +1,8 @@
 <html>
     <head>
         <title>Ye Olde Contact Manager</title>
-
+<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/code.js"></script>
         <link href="css/contacts.css" rel="stylesheet" >
     </head>
 
@@ -28,13 +29,14 @@
                     <input type="text" name="last-name" id="last-name" placeholder="Last Name">
                     <input type="text" name="email" id="email" placeholder="Email">
                     <input type="text" name="phone" id="phone" placeholder="Phone Number">
-                    <button><img src = "images/edit_button.png" width = "25" height = "25" alt= "Edit contact"></button>
-                    <button><img src = "images/add button.png" width = "25" height = "25" alt= "Add contact"> </button>
+                    <button><img src = "images/edit_button.png" width = "25" height = "25" alt= "Edit contact" onclick= "editContact();"></button>
+                    <button><img src = "images/add button.png" width = "25" height = "25" alt= "Add contact"  onclick= "addContact();"> </button>
                 </div>
                     <div id="search-box">
                         <input type="text" name="search-area" id="contact-search" placeholder="Search">
+                        <button><img src = "images/search button.png" width = "25" height = "25" alt= "Search contact" onclick= "searchContact();"></button>
                     </div>
-                  <button onclick="location.href = 'index.html';"> Sign out  </button>
+                  <button onclick="doLogout();"> Sign out  </button>
                 </div>
               <img src="images/circle_strip.png" width = "1100" >
                 <!-- Holds the table with an example row of data -->
