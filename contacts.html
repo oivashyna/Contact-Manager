@@ -2,7 +2,7 @@
     <head>
         <title>Contact Manager</title>
 
-        <link rel="stylesheet" href="css/contacts.css">
+        <link href="css/contacts.css" rel="stylesheet" >
     </head>
 
     <body>
@@ -10,7 +10,9 @@
 
             <!-- For an img -->
             <div id="left-picture-box">
-                <img src="">
+                <img src="images/ada_pink.png" style="position: absolute; left: 10px; bottom: -10px; " width = "380" height = "600">
+                <img src="images/lace.png"width = "100" height = "710">
+                 <img src="images/lace.png"width = "100" height = "710"style="position: absolute; left: 325px; bottom: 10px;">
             </div>
 
             <div id="right-text-box">
@@ -19,6 +21,8 @@
                     Add button may not get implemented in time, hence the temporary edit-table div
                 -->
                 <div id="navigation-box">
+                   <img src="images/lace.png" class="rotate90" style="position: absolute; left: 530px; top: -495px; " width="100" height = "1130">
+                   <button type="button" id="logoutButton" class="buttons" onclick="location.href = 'index.html';"> Sign out  </button>
                     <div id="search-box">
                         <input type="text" name="search-area" id="contact-search" placeholder="Search">
                     </div>
@@ -36,6 +40,7 @@
                                 <th>Last</th>
                                 <th>Email</th>
                                 <th>Phone</th>
+                                <th>Date Created</th>
                             </thead>
                             <tbody id="table-body">
                                 <tr>
@@ -43,13 +48,15 @@
                                     <td>Smith</td>
                                     <td>joesmith@gmail.com</td>
                                     <td>1111111111</td>
+                                    <td>May 16th, 2024</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
+        <img src = "images/circle_strip.png" height = "25" >
                 <div class="edit-table">
+                
                     <input type="text" name="first-name" id="first-name" placeholder="First Name">
                     <input type="text" name="last-name" id="last-name" placeholder="Last Name">
                     <input type="text" name="email" id="email" placeholder="Email">
