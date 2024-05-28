@@ -144,11 +144,14 @@ function doLogout()
 
 function addContact()
 {
-	let newContact = document.getElementById("contactText").value;
+	let firstName = document.getElementById("contactFirstName").value;
+	let lastName = document.getElementById("contactLastName").value;
+	let email = document.getElementById("contactEmail").value;
+	let phoneNumber = document.getElementById("contactPhoneNumber").value;
 	document.getElementById("contactAddResult").innerHTML = "";
 
-	let tmp = {contact:newContact,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
+	let tmp = {firstName:firstName, lastName:lastName, email:email, phoneNumber:phoneNumber, userId:userId};
+	let jsonPayload = JSON.stringify(tmp);
 
 	let url = urlBase + '/AddContact.' + extension;
 	
@@ -170,7 +173,6 @@ function addContact()
 	{
 		document.getElementById("contactAddResult").innerHTML = err.message;
 	}
-	
 }
 
 function searchContact()
