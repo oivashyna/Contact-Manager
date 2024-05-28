@@ -12,4 +12,4 @@
 ## How to Use
 
 **Visit us!**
-[Ye Old Contact Manager](https://olga-cop4331.com/)
+[Ye Old Contact Manager](http://olga-cop4331.com/)
