@@ -6,7 +6,7 @@
     $serverPass = "WeLoveCOP4331"; 
     $dbname = "ContactManager";
 
-    $userId = $inData["userId"];
+    $ID = $inData["ID"];
     $firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
 
@@ -18,7 +18,7 @@
 	else 
     {
         $stmt = $conn->prepare("DELETE FROM Contacts (FirstName, LastName, UserID) VALUES (?,?,?)");
-        $stmt->bind_param("sss", $firstName, $lastName, $userId);
+        $stmt->bind_param("sss", $firstName, $lastName, $ID);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
