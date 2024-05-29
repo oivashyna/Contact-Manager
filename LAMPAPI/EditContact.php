@@ -10,7 +10,7 @@
 	$emailAddress = $inData["emailAddress"];
 	$newFirst = $inData["newFirstName"];
 	$newLast = $inData["newLastName"];
-	$id = $inData["id"];
+	$ID = $inData["ID"];
 
 
     $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
@@ -21,7 +21,7 @@
 		else
 		{
 			$stmt = $conn->prepare("UPDATE Contacts SET FirstName = ?, LastName=?, PhoneNumber= ?, EmailAddress= ? WHERE ID= ?");
-			$stmt->bind_param("sssss", $newFirst, $newLast, $phoneNumber, $emailAddress, $id);
+			$stmt->bind_param("sssss", $newFirst, $newLast, $phoneNumber, $emailAddress, $ID);
 			$stmt->execute();
 			$stmt->close();
 			$conn->close();
