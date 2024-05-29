@@ -178,7 +178,7 @@ function addContact() {
     document.getElementById("phone").value = '';
 
     // Prepare JSON payload to send to the server (if needed)
-    let tmp = { newFirstName: firstName, newLastName: lastName, emailAddress: email, phoneNumber: phoneNumber, userId: userId };
+    let tmp = { newFirstName: firstName, newLastName: lastName, emailAddress: email, phoneNumber: phoneNumber, ID: ID };
     let jsonPayload = JSON.stringify(tmp);
 
     // Send data to the server (if needed)
