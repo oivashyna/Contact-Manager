@@ -118,17 +118,71 @@ function doLogout() {
 }
 
 function addContact() {
-    let firstName = document.getElementById("contactFirstName").value;
-    let lastName = document.getElementById("contactLastName").value;
-    let email = document.getElementById("contactEmail").value;
-    let phoneNumber = document.getElementById("contactPhoneNumber").value;
-    document.getElementById("contactAddResult").innerHTML = "";
+    // Get the input values from the edit-table
+    let firstName = document.getElementById("first-name").value;
+    let lastName = document.getElementById("last-name").value;
+    let email = document.getElementById("email").value;
+    let phoneNumber = document.getElementById("phone").value;
 
+    // Check if any of the required fields are empty
+    if (firstName === "" || lastName === "" || email === "" || phoneNumber === "") {
+        alert("Please fill out all fields.");
+        return;
+    }
+
+    // Get the table body element
+    let tableBody = document.getElementById('table-body');
+
+    // Create a new row
+    let newRow = tableBody.insertRow();
+    newRow.setAttribute('data-contact-id', Date.now()); // Assign a unique ID based on current timestamp
+
+    // Create cells for the contact data
+    let firstNameCell = newRow.insertCell();
+    let lastNameCell = newRow.insertCell();
+    let emailCell = newRow.insertCell();
+    let phoneCell = newRow.insertCell();
+    let dateCreatedCell = newRow.insertCell();
+    let actionCell = newRow.insertCell(); // Add action cell for delete button
+
+    // Fill the cells with the input values
+    firstNameCell.textContent = firstName;
+    lastNameCell.textContent = lastName;
+    emailCell.textContent = email;
+    phoneCell.textContent = phoneNumber;
+
+    // Get the current date and format it
+    let currentDate = new Date();
+    let formattedDate = currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    dateCreatedCell.textContent = formattedDate;
+
+    // Create delete button
+    let deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.addEventListener('click', function() {
+        deleteContact(newRow.getAttribute('data-contact-id'));
+    });
+
+    // Append the delete button to the action cell
+    actionCell.appendChild(deleteButton);
+
+    // Add event listener to fill up the edit-table with contact's information when clicked
+    newRow.addEventListener('click', function() {
+        fillEditTable(this);
+    });
+
+    // Clear the input fields
+    document.getElementById("first-name").value = '';
+    document.getElementById("last-name").value = '';
+    document.getElementById("email").value = '';
+    document.getElementById("phone").value = '';
+
+    // Prepare JSON payload to send to the server (if needed)
     let tmp = { newFirstName: firstName, newLastName: lastName, emailAddress: email, phoneNumber: phoneNumber, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
 
+    // Send data to the server (if needed)
     let url = urlBase + '/AddContact.' + extension;
-
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -144,52 +198,36 @@ function addContact() {
     }
 }
 
-function searchContact() {
-    let srch = document.getElementById("searchText").value;
-    document.getElementById("contactSearchResult").innerHTML = "";
+function editContact(id) {
+    // Find the row with the given contactId and edit the contact details
+    const row = document.querySelector(`[data-contact-id='${id}']`);
+    if (row) {
+        // Populate the form with existing values for editing
+        document.getElementById('first-name').value = row.cells[0].innerText;
+        document.getElementById('last-name').value = row.cells[1].innerText;
+        document.getElementById('email').value = row.cells[2].innerText;
+        document.getElementById('phone').value = row.cells[3].innerText;
 
-    let contactList = "";
-
-    let tmp = { search: srch, userId: userId };
-    let jsonPayload = JSON.stringify(tmp);
-
-    let url = urlBase + '/SearchContacts.' + extension;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try {
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactSearchResult").innerHTML = "Contact(s) have been retrieved";
-                let jsonObject = JSON.parse(xhr.responseText);
-
-                for (let i = 0; i < jsonObject.results.length; i++) {
-                    contactList += jsonObject.results[i].FirstName + " " + jsonObject.results[i].LastName + " " + jsonObject.results[i].PhoneNumber + " " + jsonObject.results[i].EmailAddress;
-                    if (i < jsonObject.results.length - 1) {
-                        contactList += "<br />\r\n";
-                    }
-                }
-
-                document.getElementsByTagName("p")[0].innerHTML = contactList;
-            }
-        };
-        xhr.send(jsonPayload);
-    } catch (err) {
-        document.getElementById("contactSearchResult").innerHTML = err.message;
+        // Remove the existing row (optional, based on your edit logic)
+        row.remove();
     }
 }
 
-function deleteContact() {
-    let contactId = document.getElementById("contactId").value;
-    document.getElementById("contactDeleteResult").innerHTML = "";
+function deleteContact(id) {
+    // Find the row with the given contactId and remove it from the table
+    const row = document.querySelector(`[data-contact-id='${id}']`);
+    if (row) {
+        row.remove();
+    }
+}
 
-    let tmp = { id: contactId, userId: userId };
-    let jsonPayload = JSON.stringify(tmp);
+function fillEditTable(row) {
+    // Populate the form with existing values for editing
+    document.getElementById('first-name').value = row.cells[0].innerText;
+    document.getElementById('last-name').value = row.cells[1].innerText;
+    document.getElementById('email').value = row.cells[2].innerText;
+    document.getElementById('phone').value = row.cells[3].innerText;
 
-    let url = urlBase + '/DeleteContact.' + extension;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr
+    // Optionally, you can set a hidden field or some indicator for the current editing row
+    document.getElementById('edit-id').value = row.getAttribute('data-contact-id');
 }
