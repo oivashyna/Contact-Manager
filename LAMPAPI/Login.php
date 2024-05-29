@@ -8,7 +8,7 @@
     $serverPass = "WeLoveCOP4331"; 
     $dbname = "ContactManager";
 	
-	$id = 0;
+	$ID = 0;
 	$firstName = "";
 	$lastName = "";
 
@@ -56,7 +56,7 @@
 	
 	function returnWithInfo( $firstName, $lastName, $id )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue = '{"ID":' . $ID . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
