@@ -1,5 +1,4 @@
 <?php
-echo "I am here -> 1";
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -10,6 +9,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
     $serverPass = "WeLoveCOP4331"; 
     $dbname = "ContactManager";
 	
+	echo "I am here -> 1";
 	$searchResults = "";
 	$searchCount = 0;
     $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
