@@ -158,7 +158,9 @@ function addContact() {
 
     // Create delete button
     let deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
+    deleteButton.innerHTML = '<img src = "images/delete_button.png" /  width= "25" height= "25">';
+	deleteButton.style.width = '25px';
+	deleteButton.style.height = '25px';
     deleteButton.addEventListener('click', function() {
         deleteContact(newRow.getAttribute('data-contact-id'));
     });
@@ -215,12 +217,22 @@ function editContact(id) {
 }
 
 function deleteContact(id) {
-    // Find the row with the given contactId and remove it from the table
-    const row = document.querySelector(`[data-contact-id='${id}']`);
-    if (row) {
-        row.remove();
-    }
+	// Find the row with the given contactId and remove it from the table
+	const row = document.querySelector(`[data-contact-id='${id}']`);
+	if (row) {
+   	let text = "Do you want to delete this contact?"
+   	if(confirm(text) == true){
+  	 
+   	row.remove();
+  	 
+   	}
+    	else{
+
+    	}
+  	 
+	}
 }
+
 
 function fillEditTable(row) {
     // Populate the form with existing values for editing
