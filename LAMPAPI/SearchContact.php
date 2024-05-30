@@ -2,18 +2,20 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
-	$inData = getRequestInfo();
+	$inData = getRequestInfo();	
+	echo "I am here -> 1";
+	returnWithError("Trouble connecting");
 
     $servername = "localhost"; 
     $serverUser = "TheBeast"; 
     $serverPass = "WeLoveCOP4331"; 
     $dbname = "ContactManager";
-	
-	echo "I am here -> 1";
-	returnWithError("Trouble connecting");
+
 	$searchResults = "";
 	$searchCount = 0;
-    $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
+    $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);	
+	echo "I am here -> 2";
+	returnWithError("Trouble connecting");
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
@@ -24,6 +26,9 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 		$contactName = "%" . $inData["search"] . "%";
 		$stmt->bind_param("sss", $contactName, $contactName, $inData["userID"]);
 		$stmt->execute();
+			
+		echo "I am here -> 3";
+		returnWithError("Trouble connecting");
 		
 		$result = $stmt->get_result();
 		
@@ -37,7 +42,9 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 			// ID will be hidden
 			$searchResults .= '{"FirstName" : "' . $row["FirstName"]. '", "LastName" : "' . $row["LastName"]. '", "Phone" : "' . $row["Phone"]. '", "Email" : "' . $row["Email"]. '", "ID" : "' . $row["ID"].'"}';
 		}
-		
+			
+		echo "I am here -> 4";
+		returnWithError("Trouble connecting");	
 		if( $searchCount == 0 )
 		{
 			returnWithError( "No Records Found" );
