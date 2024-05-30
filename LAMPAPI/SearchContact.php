@@ -1,10 +1,10 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-	$inData = getRequestInfo();	
 	echo "I am here -> 1";
 	returnWithError("Trouble connecting");
+// header("Access-Control-Allow-Origin: *");
+// header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
+// header("Access-Control-Allow-Headers: Content-Type, Authorization");
+	$inData = getRequestInfo();	
 
     $servername = "localhost"; 
     $serverUser = "TheBeast"; 
