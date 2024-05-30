@@ -8,9 +8,9 @@
 
 	$phoneNumber = $inData["phoneNumber"];
 	$emailAddress = $inData["emailAddress"];
-	$newFirstName = $inData["newFirstName"];
-	$newLastName = $inData["newLastName"];
-	$userID = $inData["userID"];
+	$newFirst = $inData["newFirstName"];
+	$newLast = $inData["newLastName"];
+	$userId = $inData["userId"];
 
     $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 	if ($conn->connect_error) 
@@ -20,11 +20,11 @@
 	else
 	{
 		$stmt = $conn->prepare("INSERT INTO Contacts (FirstName, LastName, Phone, Email, UserID) VALUES(?,?,?,?,?)");
-		$stmt->bind_param("sssss", $newFirstName, $newLastName, $phoneNumber, $emailAddress, $userID);
+		$stmt->bind_param("sssss", $newFirst, $newLast, $phoneNumber, $emailAddress, $userId);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
-		returnWithError("Success");
+		returnWithError("");
 	}
 
 	function getRequestInfo()
