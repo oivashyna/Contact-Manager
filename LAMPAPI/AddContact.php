@@ -17,7 +17,7 @@ $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 if ($conn->connect_error) {
     returnWithError("Connection failed: " . $conn->connect_error);
 } else {
-    $stmt = $conn->prepare("INSERT INTO Contacts (FirstName, LastName, Phone, Email, UserId) VALUES(?,?,?,?,?)");
+    $stmt = $conn->prepare("INSERT INTO Contacts (newFirstName, newLastName, phoneNumber, emailAddress, UserID) VALUES(?,?,?,?,?)");
     if (!$stmt) {
         returnWithError("Prepare failed: " . $conn->error);
     } else {
