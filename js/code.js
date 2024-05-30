@@ -199,6 +199,12 @@ function addContact() {
 }
 
 function editContact(id) {
+    // Get the input values from the edit-table
+    let firstName = document.getElementById("first-name").value;
+    let lastName = document.getElementById("last-name").value;
+    let email = document.getElementById("email").value;
+    let phoneNumber = document.getElementById("phone").value;
+
     // Find the row with the given contactId and edit the contact details
     const row = document.querySelector(`[data-contact-id='${id}']`);
     if (row) {
@@ -209,12 +215,18 @@ function editContact(id) {
         }
 
         // Populate the form with existing values for editing
-        document.getElementById('first-name').value = row.cells[0].innerText;
-        document.getElementById('last-name').value = row.cells[1].innerText;
-        document.getElementById('email').value = row.cells[2].innerText;
-        document.getElementById('phone').value = row.cells[3].innerText;
-        alert("Success!");
+        // document.getElementById('first-name').value = row.cells[0].innerText;
+        // document.getElementById('last-name').value = row.cells[1].innerText;
+        // document.getElementById('email').value = row.cells[2].innerText;
+        // document.getElementById('phone').value = row.cells[3].innerText;
         
+        // V2
+        row.cells[0].innerText = firstName;
+        row.cells[1].innerText = lastName;
+        row.cells[2].innerText = email;
+        row.cells[3].innerText = phoneNumber;
+        alert("Success!");
+
         // Remove the existing row (optional, based on your edit logic)
         // row.remove();
 
@@ -225,26 +237,6 @@ function editContact(id) {
         document.getElementById("phone").value = '';
     }
 
-
-    // Prepare JSON payload to send to the server (if needed)
-    let tmp = { newFirstName: firstName, newLastName: lastName, emailAddress: email, phoneNumber: phoneNumber, ID: ID };
-    let jsonPayload = JSON.stringify(tmp);
-
-    // Send data to the server (if needed)
-    let url = urlBase + '/AddContact.' + extension;
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try {
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contactAddResult").innerHTML = "Contact has been added";
-            }
-        };
-        xhr.send(jsonPayload);
-    } catch (err) {
-        document.getElementById("contactAddResult").innerHTML = err.message;
-    }
 }
 
 function deleteContact(id) {
