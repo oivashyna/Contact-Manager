@@ -158,9 +158,7 @@ function addContact() {
 
     // Create delete button
     let deleteButton = document.createElement('button');
-   deleteButton.innerHTML = '<img src = "images/delete_button.png" /  width= "25" height= "25">';
-    deleteButton.style.width = '25px';
-    deleteButton.style.height = '25px';
+    deleteButton.textContent = 'Delete';
     deleteButton.addEventListener('click', function() {
         deleteContact(newRow.getAttribute('data-contact-id'));
     });
@@ -220,13 +218,6 @@ function deleteContact(id) {
     // Find the row with the given contactId and remove it from the table
     const row = document.querySelector(`[data-contact-id='${id}']`);
     if (row) {
-       let text = "Do you want to delete this contact?"
-       if(confirm(text) == true){
-       row.remove();
-       }
-        else{
-
-        }
         row.remove();
     }
 }
@@ -267,18 +258,14 @@ function loadContacts() {
                 for (let i = 0; i < jsonObject.results.length; i++) {
                     ids[i] = jsonObject.results[i].ID
                     text += "<tr id='row" + i + "'>"
-                    text += "<td id='first_Name" + i + "'><span>" + jsonObject.results[i].FirstName + "</span></td>";
-                    text += "<td id='last_Name" + i + "'><span>" + jsonObject.results[i].LastName + "</span></td>";
+                    text += "<td id='first-name" + i + "'><span>" + jsonObject.results[i].FirstName + "</span></td>";
+                    text += "<td id='last-name" + i + "'><span>" + jsonObject.results[i].LastName + "</span></td>";
                     text += "<td id='email" + i + "'><span>" + jsonObject.results[i].EmailAddress + "</span></td>";
                     text += "<td id='phone" + i + "'><span>" + jsonObject.results[i].PhoneNumber + "</span></td>";
-                    text += "<td>" +
-                        "<button type='button' id='edit_button" + i + "' class='w3-button w3-circle w3-lime' onclick='edit_row(" + i + ")'>" + "<span class='glyphicon glyphicon-edit'></span>" + "</button>" +
-                        "<button type='button' id='save_button" + i + "' value='Save' class='w3-button w3-circle w3-lime' onclick='save_row(" + i + ")' style='display: none'>" + "<span class='glyphicon glyphicon-saved'></span>" + "</button>" +
-                        "<button type='button' onclick='delete_row(" + i + ")' class='w3-button w3-circle w3-amber'>" + "<span class='glyphicon glyphicon-trash'></span> " + "</button>" + "</td>";
                     text += "<tr/>"
                 }
                 text += "</table>"
-                document.getElementById("tbody").innerHTML = text;
+                document.getElementById("table-body").innerHTML = text;
             }
         };
         xhr.send(jsonPayload);
