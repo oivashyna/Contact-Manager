@@ -1,47 +1,75 @@
 <?php
-	$inData = getRequestInfo();
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-    $servername = "localhost"; 
-    $serverUser = "TheBeast"; 
-    $serverPass = "WeLoveCOP4331"; 
-    $dbname = "ContactManager";
+$inData = getRequestInfo();
 
-	$phoneNumber = $inData["phoneNumber"];
-	$emailAddress = $inData["emailAddress"];
-	$newFirstName = $inData["newFirstName"];
-	$newLastName = $inData["newLastName"];
-	$userID = $inData["userID"];
+$servername = "localhost"; 
+$serverUser = "TheBeast"; 
+$serverPass = "WeLoveCOP4331"; 
+$dbname = "ContactManager";
 
-    $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
-	if ($conn->connect_error) 
-	{
-		returnWithError( $conn->connect_error );
-	} 
-	else
-	{
-		$stmt = $conn->prepare("INSERT INTO Contacts (FirstName, LastName, Phone, Email, UserId) VALUES(?,?,?,?,?)");
-		$stmt->bind_param("ssssi", $newFirstName, $newLastName, $phoneNumber, $emailAddress, $userID);
-		$stmt->execute();
-		$stmt->close();
-		$conn->close();
-		returnWithError("");
-	}
+// Map incoming JSON data to PHP variables
+$newFirstName = $inData["newFirstName"];
+$newLastName = $inData["newLastName"];
+$phoneNumber = $inData["phoneNumber"];
+$emailAddress = $inData["emailAddress"];
+$userID = $inData["userID"];
 
-	function getRequestInfo()
-	{
-		return json_decode(file_get_contents('php://input'), true);
-	}
+$conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 
-	function sendResultInfoAsJson( $obj )
-	{
-		header('Content-type: application/json');
-		echo $obj;
-	}
-	
-	function returnWithError( $err )
-	{
-		$retValue = '{"error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
-	}
-	
+if ($conn->connect_error) 
+{
+    returnWithError("Connection failed: " . $conn->connect_error);
+} 
+else 
+{
+    // SQL Statement with accurate database column names
+    $stmt = $conn->prepare("INSERT INTO Contacts (FirstName, LastName, Phone, Email, UserID) VALUES (?, ?, ?, ?, ?)");
+    if ($stmt)
+    {
+        // Bind PHP variables to SQL statement
+        $stmt->bind_param("ssssi", $newFirstName, $newLastName, $phoneNumber, $emailAddress, $userID);
+        if ($stmt->execute())
+        {
+            returnWithMessage("Contact added successfully");
+        }
+        else
+        {
+            returnWithError("Execute failed: " . $stmt->error);
+        }
+        $stmt->close();
+    }
+    else
+    {
+        returnWithError("Prepare failed: " . $conn->error);
+    }
+    $conn->close();
+}
+
+function getRequestInfo()
+{
+    return json_decode(file_get_contents('php://input'), true);
+}
+
+function sendResultInfoAsJson($obj)
+{
+    header('Content-type: application/json');
+    echo json_encode($obj);
+}
+
+function returnWithError($err)
+{
+    $retValue = ["error" => $err];
+    error_log(json_encode($retValue)); // Log the error
+    sendResultInfoAsJson($retValue);
+}
+
+function returnWithMessage($msg)
+{
+    $retValue = ["message" => $msg];
+    error_log(json_encode($retValue)); // Log the message
+    sendResultInfoAsJson($retValue);
+}
 ?>
