@@ -218,7 +218,13 @@ function deleteContact(id) {
     // Find the row with the given contactId and remove it from the table
     const row = document.querySelector(`[data-contact-id='${id}']`);
     if (row) {
-        row.remove();
+       let text = "Do you want to delete this contact?"
+       if(confirm(text) == true){
+       row.remove();
+       }
+        else{
+        
+        }
     }
 }
 
