@@ -10,6 +10,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
     $dbname = "ContactManager";
 	
 	echo "I am here -> 1";
+	returnWithError("Trouble connecting");
 	$searchResults = "";
 	$searchCount = 0;
     $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
