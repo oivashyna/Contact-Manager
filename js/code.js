@@ -178,7 +178,7 @@ function addContact() {
     document.getElementById("phone").value = '';
 
     // Prepare JSON payload to send to the server (if needed)
-    let tmp = { newFirstName: firstName, newLastName: lastName, emailAddress: email, phoneNumber: phoneNumber, ID: ID };
+    let tmp = { newFirstName: firstName, newLastName: lastName, emailAddress: email, phoneNumber: phoneNumber, userID: userId };
     let jsonPayload = JSON.stringify(tmp);
 
     // Send data to the server (if needed)
@@ -202,14 +202,48 @@ function editContact(id) {
     // Find the row with the given contactId and edit the contact details
     const row = document.querySelector(`[data-contact-id='${id}']`);
     if (row) {
+        // Check if any of the required fields are empty
+        if (firstName === "" || lastName === "" || email === "" || phoneNumber === "") {
+            alert("Please fill out all fields.");
+            return;
+        }
+
         // Populate the form with existing values for editing
         document.getElementById('first-name').value = row.cells[0].innerText;
         document.getElementById('last-name').value = row.cells[1].innerText;
         document.getElementById('email').value = row.cells[2].innerText;
         document.getElementById('phone').value = row.cells[3].innerText;
-
+        alert("Success!");
+        
         // Remove the existing row (optional, based on your edit logic)
-        row.remove();
+        // row.remove();
+
+        // Clear the input fields
+        document.getElementById("first-name").value = '';
+        document.getElementById("last-name").value = '';
+        document.getElementById("email").value = '';
+        document.getElementById("phone").value = '';
+    }
+
+
+    // Prepare JSON payload to send to the server (if needed)
+    let tmp = { newFirstName: firstName, newLastName: lastName, emailAddress: email, phoneNumber: phoneNumber, ID: ID };
+    let jsonPayload = JSON.stringify(tmp);
+
+    // Send data to the server (if needed)
+    let url = urlBase + '/AddContact.' + extension;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("contactAddResult").innerHTML = err.message;
     }
 }
 
@@ -219,6 +253,7 @@ function deleteContact(id) {
     if (row) {
         row.remove();
     }
+
 }
 
 function fillEditTable(row) {
