@@ -158,7 +158,9 @@ function addContact() {
 
     // Create delete button
     let deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
+   deleteButton.innerHTML = '<img src = "images/delete_button.png" /  width= "25" height= "25">';
+    deleteButton.style.width = '25px';
+    deleteButton.style.height = '25px';
     deleteButton.addEventListener('click', function() {
         deleteContact(newRow.getAttribute('data-contact-id'));
     });
