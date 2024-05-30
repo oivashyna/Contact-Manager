@@ -11,7 +11,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 	
 	$searchResults = "";
 	$searchCount = 0;
-
+echo "I am here -> 1";
     $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 	if ($conn->connect_error) 
 	{
