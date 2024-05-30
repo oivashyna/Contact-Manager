@@ -1,4 +1,5 @@
 <?php
+echo "I am here -> 1";
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -11,7 +12,6 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 	
 	$searchResults = "";
 	$searchCount = 0;
-echo "I am here -> 1";
     $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 	if ($conn->connect_error) 
 	{
