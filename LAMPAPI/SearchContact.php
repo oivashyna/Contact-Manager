@@ -31,7 +31,7 @@
 			}
 			$searchCount++;
 			// ID will be hidden
-			$searchResults .= '{"FirstName" : "' . $row["FirstName"]. '", "LastName" : "' . $row["LastName"]. '", "PhoneNumber" : "' . $row["PhoneNumber"]. '", "EmailAddress" : "' . $row["EmailAddress"]. '", "ID" : "' . $row["ID"].'"}';
+			$searchResults .= '{"FirstName" : "' . $row["FirstName"]. '", "LastName" : "' . $row["LastName"]. '", "Phone" : "' . $row["Phone"]. '", "Email" : "' . $row["Email"]. '", "ID" : "' . $row["ID"].'"}';
 		}
 		
 		if( $searchCount == 0 )
