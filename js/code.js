@@ -262,3 +262,7 @@ function fillEditTable(row) {
     // Optionally, you can set a hidden field or some indicator for the current editing row
     document.getElementById('edit-id').value = row.getAttribute('data-contact-id');
 }
+
+function loadTable() {
+
+}
