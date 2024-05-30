@@ -14,35 +14,35 @@ $userID = $inData["userID"];
 
 $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 
-if ($conn->connect_error) {
-    returnWithError("Connection failed: " . $conn->connect_error);
-} else {
-    $stmt = $conn->prepare("INSERT INTO Contacts (newFirstName, newLastName, phoneNumber, emailAddress, UserID) VALUES(?,?,?,?,?)");
-    if (!$stmt) {
-        returnWithError("Prepare failed: " . $conn->error);
-    } else {
-        $stmt->bind_param("ssssi", $newFirstName, $newLastName, $phoneNumber, $emailAddress, $userID);
-        if (!$stmt->execute()) {
-            returnWithError("Execute failed: " . $stmt->error);
-        } else {
-            returnWithError("");
-        }
-        $stmt->close();
-    }
-    $conn->close();
-}
+if ($conn->connect_error)
+	{
+			returnWithError( $conn->connect_error );
+	}
+	else
+	{
+			$stmt = $conn->prepare("INSERT into Contacts (newFirstName,newLastName,newPhoneNumber,EmailAddress, UserID) VALUES(?,?,?,?,?)");
+			$stmt->bind_param("ssssi", $newFirstName, $newLastName, $phoneNumber, $emailAddress, $userID);
+			$stmt->execute();
+			$stmt->close();
+			$conn->close();
+			returnWithError("");
+		}
 
-function getRequestInfo() {
-    return json_decode(file_get_contents('php://input'), true);
-}
+	function getRequestInfo()
+	{
+		return json_decode(file_get_contents('php://input'), true);
+	}
 
-function sendResultInfoAsJson($obj) {
-    header('Content-type: application/json');
-    echo $obj;
-}
+	function sendResultInfoAsJson( $obj )
+	{
+		header('Content-type: application/json');
+		echo $obj;
+	}
 
-function returnWithError($err) {
-    $retValue = '{"error":"' . $err . '"}';
-    sendResultInfoAsJson($retValue);
-}
+	function returnWithError( $err )
+	{
+		$retValue = '{"error":"' . $err . '"}';
+		sendResultInfoAsJson( $retValue );
+	}
+
 ?>
