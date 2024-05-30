@@ -7,8 +7,7 @@
     $dbname = "ContactManager";
 
     $ID = $inData["ID"];
-    $firstName = $inData["firstName"];
-    $lastName = $inData["lastName"];
+    $userID = $inData["userID"];
 
     $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 	if ($conn->connect_error) 
@@ -17,8 +16,8 @@
 	} 
 	else 
     {
-        $stmt = $conn->prepare("DELETE FROM Contacts (FirstName, LastName, UserID) VALUES (?,?,?)");
-        $stmt->bind_param("sss", $firstName, $lastName, $ID);
+        $stmt = $conn->prepare("DELETE FROM Contacts where ID = ? and UserID = ?");
+        $stmt->bind_param("ss", $userID, $ID);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
