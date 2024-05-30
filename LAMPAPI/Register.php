@@ -4,6 +4,7 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 $inData = getRequestInfo();
+logData("Received input data: " . json_encode($inData));
 
 $servername = "localhost"; 
 $serverUser = "TheBeast"; 
@@ -14,6 +15,7 @@ $firstName = $inData["firstName"];
 $lastName = $inData["lastName"];
 $login = $inData["login"];
 $password = $inData["password"];
+logData("Parsed firstName: $firstName, lastName: $lastName, login: $login, password: $password");
 
 $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
 
@@ -24,16 +26,21 @@ if ($conn->connect_error)
 else 
 {
     $stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
-    if ($stmt->execute())
-    {
-        returnWithMessage("User registered successfully");
+    if (!$stmt) {
+        returnWithError("Prepare failed: " . $conn->error);
+    } else {
+        $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
+        if ($stmt->execute())
+        {
+            logData("User registered successfully");
+            returnWithMessage("User registered successfully");
+        }
+        else
+        {
+            returnWithError("Execute failed: " . $stmt->error);
+        }
+        $stmt->close();
     }
-    else
-    {
-        returnWithError("Execute failed: " . $stmt->error);
-    }
-    $stmt->close();
     $conn->close();
 }
 
@@ -46,19 +53,24 @@ function sendResultInfoAsJson($obj)
 {
     header('Content-type: application/json');
     echo json_encode($obj);
+    logData("Sending response: " . json_encode($obj));
 }
 
 function returnWithError($err)
 {
+    logData("Error: " . $err);
     $retValue = ["error" => $err];
-    error_log(json_encode($retValue)); // Log the error
     sendResultInfoAsJson($retValue);
 }
 
 function returnWithMessage($msg)
 {
     $retValue = ["message" => $msg];
-    error_log(json_encode($retValue)); // Log the message
     sendResultInfoAsJson($retValue);
 }
+
+function logData($data) {
+    error_log($data);
+}
 ?>
+
