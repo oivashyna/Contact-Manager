@@ -216,22 +216,6 @@ function editContact(id) {
     }
 }
 
-function saveContact() {
-	const id = document.getElementById('contact-id').value;
-    const firstName = document.getElementById('first-name').value;
-    const lastName = document.getElementById('last-name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-
-    // Find the row with the given contactId
-    const row = document.querySelector(`[data-contact-id='${id}']`);
-    if (row) {
-        // Update the row with new values
-        row.cells[0].innerText = firstName;
-        row.cells[1].innerText = lastName;
-        row.cells[2].innerText = email;
-        row.cells[3].innerText = phone;
-}
 
 function deleteContact(id) {
 	// Find the row with the given contactId and remove it from the table
