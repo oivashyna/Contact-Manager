@@ -1,15 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
 <html>
     <head>
         <title>Ye Olde Contact Manager</title>
-    <script type="text/javascript" src="js/md5.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/contacts.css" rel="stylesheet" >
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-            readCookie();
-            loadContacts();
-        }, false);
-    </script>
+        <link href="css/contacts.css" rel="stylesheet" >
     </head>
 
     <body>
@@ -19,11 +15,11 @@
             <div id="left-picture-box">
                  
                 <div id=  "lace">
-                <img src="images/lace.png " style= "max-height: 44.9vw">
-                 <img src="images/lace.png" style= "max-height: 44.9vw; position: relative; left: 12.7vw;">
+                <img src="images/lace.png " style= "max-height: 44.9vw" alt="A pink lace strip of roses">
+                 <img src="images/lace.png" style= "max-height: 44.9vw; position: relative; left: 12.7vw;" alt="A pink lace strip of roses">
                 
                  </div>
-                  <img src="images/ada_pink.png" style="max-height: 80vh; max-width: 50vw; position: relative; left: 1vw; bottom: 77vh; " >
+                  <img src="images/ada_pink.png" style="max-height: 80vh; max-width: 50vw; position: relative; left: 1vw; bottom: 77vh; " alt= "Ada Lovelace in a white dress with a pink filter">
             </div>
 
             <div id="right-text-box">
@@ -39,16 +35,16 @@
                     <input type="text" name="last-name" id="last-name" placeholder="Last Name">
                     <input type="text" name="email" id="email" placeholder="Email">
                     <input type="text" name="phone" id="phone" placeholder="Phone Number">
-                    <button><img src = "images/edit_button.png" width = "25" height = "25" alt= "Edit contact" onclick= "editContact();"></button>
-                    <button><img src = "images/add button.png" width = "25" height = "25" alt= "Add contact"  onclick= "addContact();"> </button>
+                    <button><img src = "images/edit_button.png" width = "25" height = "25" alt= "Edit contact" onclick= "editContact();" alt="picture of a pencil,indicating editing"></button>
+                    <button><img src = "images/add button.png" width = "25" height = "25" alt= "Add contact"  onclick= "addContact();" alt="picture of a plus sign, for adding"> </button>
                 </div>
                     <div id="search-box">
                         <input type="text" name="search-area" id="contact-search" placeholder="Search">
-                        <button><img src = "images/search button.png" width = "25" height = "25" alt= "Search contact" onclick= "searchContact();"></button>
+                        <button><img src = "images/search button.png" width = "25" height = "25" alt= "Search contact" onclick= "searchContact();"  alt="picture of a magnifying glass, indicating searching"></button>
                     </div>
                   <button onclick="doLogout();"> Sign out  </button>
                 </div>
-              <img src="images/circle_strip.png" style= "max-width: 72vw;" >
+              <img src="images/circle_strip.png" style= "max-width: 72vw;"alt= "a lace strip made of circles" >
                 <!-- Holds the table with an example row of data -->
                 <div class="contacts-table" id="contacts-table-box">
                     <div class="table-content" id="contacts-table">
@@ -70,7 +66,7 @@
                     
                 </div>
         
-                <img src="images/circle_strip.png" style= "max-width: 72vw;" >
+                <img src="images/circle_strip.png" style= "max-width: 72vw;" alt= "a lace strip made of circles">
 
             </div>
         </div>
