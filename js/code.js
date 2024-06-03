@@ -158,7 +158,9 @@ function addContact() {
 
     // Create delete button
     let deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
+    deleteButton.innerHTML = '<img src = "images/delete_button.png" /  width= "25" height= "25">';
+	deleteButton.style.width = '25px';
+	deleteButton.style.height = '25px';
     deleteButton.addEventListener('click', function() {
         deleteContact(newRow.getAttribute('data-contact-id'));
     });
@@ -178,7 +180,7 @@ function addContact() {
     document.getElementById("phone").value = '';
 
     // Prepare JSON payload to send to the server (if needed)
-    let tmp = { newFirstName: firstName, newLastName: lastName, emailAddress: email, phoneNumber: phoneNumber, userID: userId };
+    let tmp = { newFirstName: firstName, newLastName: lastName, emailAddress: email, phoneNumber: phoneNumber, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
 
     // Send data to the server (if needed)
@@ -190,6 +192,7 @@ function addContact() {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+                loadContacts();
             }
         };
         xhr.send(jsonPayload);
@@ -199,58 +202,38 @@ function addContact() {
 }
 
 function editContact(id) {
-    // Get the input values from the edit-table
-    let firstName = document.getElementById("first-name").value;
-    let lastName = document.getElementById("last-name").value;
-    let email = document.getElementById("email").value;
-    let phoneNumber = document.getElementById("phone").value;
-
     // Find the row with the given contactId and edit the contact details
     const row = document.querySelector(`[data-contact-id='${id}']`);
     if (row) {
-        // Check if any of the required fields are empty
-        if (firstName === "" || lastName === "" || email === "" || phoneNumber === "") {
-            alert("Please fill out all fields.");
-            return;
-        }
-
         // Populate the form with existing values for editing
-        // document.getElementById('first-name').value = row.cells[0].innerText;
-        // document.getElementById('last-name').value = row.cells[1].innerText;
-        // document.getElementById('email').value = row.cells[2].innerText;
-        // document.getElementById('phone').value = row.cells[3].innerText;
-        
-        // V2
-        row.cells[0].innerText = firstName;
-        row.cells[1].innerText = lastName;
-        row.cells[2].innerText = email;
-        row.cells[3].innerText = phoneNumber;
-        alert("Success!");
+        document.getElementById('first-name').value = row.cells[0].innerText;
+        document.getElementById('last-name').value = row.cells[1].innerText;
+        document.getElementById('email').value = row.cells[2].innerText;
+        document.getElementById('phone').value = row.cells[3].innerText;
 
         // Remove the existing row (optional, based on your edit logic)
-        // row.remove();
-
-        // Clear the input fields
-        document.getElementById("first-name").value = '';
-        document.getElementById("last-name").value = '';
-        document.getElementById("email").value = '';
-        document.getElementById("phone").value = '';
+        row.remove();
     }
-
 }
+
 
 function deleteContact(id) {
-    // Find the row with the given contactId and remove it from the table
-    const row = document.querySelector(`[data-contact-id='${id}']`);
-    if (row) {
-       let text = "Do you want to delete this contact?"
-       if(confirm(text) == true){
-       row.remove();
-       }
-        else{}
-    }
+	// Find the row with the given contactId and remove it from the table
+	const row = document.querySelector(`[data-contact-id='${id}']`);
+	if (row) {
+   	let text = "Do you want to delete this contact?"
+   	if(confirm(text) == true){
+  	 
+   	row.remove();
+  	 
+   	}
+    	else{
 
+    	}
+  	 
+	}
 }
+
 
 function fillEditTable(row) {
     // Populate the form with existing values for editing
@@ -263,6 +246,43 @@ function fillEditTable(row) {
     document.getElementById('edit-id').value = row.getAttribute('data-contact-id');
 }
 
-function loadTable() {
+function loadContacts() {
+    let temp = {
+        search: "",
+        userId: userId
+    };
 
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/SearchContact.' + extension;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, truel);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try {
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+                if (jsonObject.error) {
+                    console.log(jsonObject.error);
+                    return;
+                }
+                let text = "<table border='1'>"
+                for (let i = 0; i < jsonObject.results.length; i++) {
+                    ids[i] = jsonObject.results[i].ID
+                    text += "<tr id='row" + i + "'>"
+                    text += "<td id='first-name" + i + "'><span>" + jsonObject.results[i].FirstName + "</span></td>";
+                    text += "<td id='last-name" + i + "'><span>" + jsonObject.results[i].LastName + "</span></td>";
+                    text += "<td id='email" + i + "'><span>" + jsonObject.results[i].EmailAddress + "</span></td>";
+                    text += "<td id='phone" + i + "'><span>" + jsonObject.results[i].PhoneNumber + "</span></td>";
+                    text += "<tr/>"
+                }
+                text += "</table>"
+                document.getElementById("table-body").innerHTML = text;
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        console.log(err.message);
+    }
 }

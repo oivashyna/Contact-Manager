@@ -1,4 +1,3 @@
-
 <?php
 	// Will be expecting the following fields: 
 	// "login" : "string",
