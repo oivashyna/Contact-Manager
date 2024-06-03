@@ -6,6 +6,13 @@
 <script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="js/code.js"></script>
         <link href="css/contacts.css" rel="stylesheet" >
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function () {
+                readCookie();
+                searchContact();
+            }, false);
+        </script>
+	</script>
     </head>
 
     <body>
@@ -13,12 +20,17 @@
 
             <!-- For an img -->
             <div id="left-picture-box">
-                 
+            <div class="loggedInDiv">
+                <span style="color:#610464" id="userName"></span><br />
+                
+                </div>
                 <div id=  "lace">
                 <img src="images/lace.png " style= "max-height: 44.9vw" alt="A pink lace strip of roses">
+                
                  <img src="images/lace.png" style= "max-height: 44.9vw; position: relative; left: 12.7vw;" alt="A pink lace strip of roses">
                 
                  </div>
+                 
                   <img src="images/ada_pink.png" style="max-height: 80vh; max-width: 50vw; position: relative; left: 1vw; bottom: 77vh; " alt= "Ada Lovelace in a white dress with a pink filter">
             </div>
 
