@@ -174,7 +174,7 @@ function addContact() {
 
     let valid = true;
 
-    //
+    //10-digit phone and email format
     const regexP = /[0-9]{3}-[0-9]{3}-[0-9]{4}/;
     const regexE = /[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/;
 
