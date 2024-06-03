@@ -1,76 +1,69 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+   // Will be expecting the following fields: 
+   // "firstName" : "string",
+   // "lastName" : "string",
+   // "login" : "string",
+	 // "password" : "string"
 
-$inData = getRequestInfo();
-logData("Received input data: " . json_encode($inData));
+	$inData = getRequestInfo();
+	
+	$firstName = $inData["firstName"];
+  	$lastName = $inData["lastName"];
+  	$login = $inData["login"];
+  	$password = $inData["password"];
 
-$servername = "localhost"; 
-$serverUser = "TheBeast"; 
-$serverPass = "WeLoveCOP4331"; 
-$dbname = "ContactManager";
+	$conn = new mysqli("localhost", "Manager", "COP4331", "ContactManager"); 	
+	if( $conn->connect_error )
+	{
+		returnWithError( $conn->connect_error );
+	}
+	else
+	{
+		$stmt = $conn->prepare("SELECT * FROM Users WHERE Login=?");
+		$stmt->bind_param("s", $login);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$rows = mysqli_num_rows($result);
+		if ($rows == 0)
+		{
+			$stmt = $conn->prepare("INSERT into Users (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
+			$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
+			$stmt->execute();
+			$id = $conn->insert_id;
+			$stmt->close();
+			$conn->close();
+			http_response_code(200);
+			$searchResults .= '{'.'"id": "'.$id.''.'"}';
 
-$firstName = $inData["firstName"];
-$lastName = $inData["lastName"];
-$login = $inData["login"];
-$password = $inData["password"];
-logData("Parsed firstName: $firstName, lastName: $lastName, login: $login, password: $password");
-
-$conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
-
-if ($conn->connect_error) 
-{
-    returnWithError("Connection failed: " . $conn->connect_error);
-} 
-else 
-{
-    $stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES (?, ?, ?, ?)");
-    if (!$stmt) {
-        returnWithError("Prepare failed: " . $conn->error);
-    } else {
-        $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
-        if ($stmt->execute())
+			returnWithInfo($searchResults);
+		} 
+        else 
         {
-            logData("User registered successfully");
-            returnWithMessage("User registered successfully");
-        }
-        else
-        {
-            returnWithError("Execute failed: " . $stmt->error);
-        }
-        $stmt->close();
-    }
-    $conn->close();
-}
+			http_response_code(409);
+			returnWithError("Username taken");
+		}
+	}
 
-function getRequestInfo()
-{
-    return json_decode(file_get_contents('php://input'), true);
-}
+	function getRequestInfo()
+	{
+		return json_decode(file_get_contents('php://input'), true);
+	}
 
-function sendResultInfoAsJson($obj)
-{
-    header('Content-type: application/json');
-    echo json_encode($obj);
-    logData("Sending response: " . json_encode($obj));
-}
+	function sendResultInfoAsJson( $obj )
+	{
+		header('Content-type: application/json');
+		echo $obj;
+	}
 
-function returnWithError($err)
-{
-    logData("Error: " . $err);
-    $retValue = ["error" => $err];
-    sendResultInfoAsJson($retValue);
-}
-
-function returnWithMessage($msg)
-{
-    $retValue = ["message" => $msg];
-    sendResultInfoAsJson($retValue);
-}
-
-function logData($data) {
-    error_log($data);
-}
+	function returnWithError( $err )
+	{
+		$retValue = '{"error":"' . $err . '"}';
+		sendResultInfoAsJson( $retValue );
+	}
+	function returnWithInfo( $searchResults )
+	{
+		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+		sendResultInfoAsJson( $retValue );
+	}
+	
 ?>
-

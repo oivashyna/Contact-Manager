@@ -1,22 +1,21 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+	// Will be expecting the following fields: 
+	// "firstName" : "string",
+	// "lastName" : "string",
+	// "phoneNumber" : "string",
+	// "emailAddress" : "string",
+	// "ID" : int
+
 	$inData = getRequestInfo();
 
-    $servername = "localhost"; 
-    $serverUser = "TheBeast"; 
-    $serverPass = "WeLoveCOP4331"; 
-    $dbname = "ContactManager";
-
+	$firstName = $inData["firstName"];
+	$lastName = $inData["lastName"];
 	$phoneNumber = $inData["phoneNumber"];
 	$emailAddress = $inData["emailAddress"];
-	$newFirstName = $inData["newFirstName"];
-	$newLastName = $inData["newLastName"];
 	$ID = $inData["ID"];
 
 
-    $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
+	$conn = new mysqli("localhost", "Manager", "COP4331", "ContactManager");
 		if ($conn->connect_error)
 		{
 			returnWithError( $conn->connect_error );
@@ -24,10 +23,12 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 		else
 		{
 			$stmt = $conn->prepare("UPDATE Contacts SET FirstName = ?, LastName=?, PhoneNumber= ?, EmailAddress= ? WHERE ID= ?");
-			$stmt->bind_param("ssssi", $newFirstName, $newLastName, $phoneNumber, $emailAddress, $ID);
+			$stmt->bind_param("ssssi", $firstName, $lastName, $phoneNumber, $emailAddress, $ID);
 			$stmt->execute();
+
 			$stmt->close();
 			$conn->close();
+			returnWithError("None");
 		}
 
 
@@ -48,5 +49,6 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
+
 
 ?>

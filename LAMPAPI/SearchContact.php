@@ -1,34 +1,24 @@
 <?php
-	echo "I am here -> 1";
-	returnWithError("Trouble connecting");
-// header("Access-Control-Allow-Origin: *");
-// header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
-// header("Access-Control-Allow-Headers: Content-Type, Authorization");
-	$inData = getRequestInfo();	
+	// Will be expecting the following fields: 
+	// "search" : "string",
+	// "userID" : int
 
-    $servername = "localhost"; 
-    $serverUser = "TheBeast"; 
-    $serverPass = "WeLoveCOP4331"; 
-    $dbname = "ContactManager";
-
+	$inData = getRequestInfo();
+	
 	$searchResults = "";
 	$searchCount = 0;
-    $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);	
-	echo "I am here -> 2";
-	returnWithError("Trouble connecting");
+
+	$conn = new mysqli("localhost", "Manager", "COP4331", "ContactManager"); 	
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
 	} 
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ?) and UserID=?");
-		$contactName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("sss", $contactName, $contactName, $inData["userID"]);
+		$stmt = $conn->prepare("SELECT * from Contacts where (FirstName like ? OR LastName like ? OR EmailAddress like ?) and UserID=?");
+		$searchQuery = "%" . $inData["search"] . "%";
+		$stmt->bind_param("sssi", $searchQuery, $searchQuery, $searchQuery, $inData["userID"]);
 		$stmt->execute();
-			
-		echo "I am here -> 3";
-		returnWithError("Trouble connecting");
 		
 		$result = $stmt->get_result();
 		
@@ -39,12 +29,10 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			// ID will be hidden
-			$searchResults .= '{"FirstName" : "' . $row["FirstName"]. '", "LastName" : "' . $row["LastName"]. '", "Phone" : "' . $row["Phone"]. '", "Email" : "' . $row["Email"]. '", "ID" : "' . $row["ID"].'"}';
-		}
+			$searchResults .= '{"FirstName" : "' . $row["FirstName"]. '", "LastName" : "' . $row["LastName"]. '", "PhoneNumber" : "' . $row["PhoneNumber"]. '", "EmailAddress" : "' . $row["EmailAddress"]. '", "UserID" : "' . $row["UserID"].'", "ID" : "' . $row["ID"]. '"}';
 			
-		echo "I am here -> 4";
-		returnWithError("Trouble connecting");	
+		}
+		
 		if( $searchCount == 0 )
 		{
 			returnWithError( "No Records Found" );
