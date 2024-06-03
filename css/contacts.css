@@ -1,17 +1,33 @@
 body {
-    background-color: rgb(75, 64, 64);
+    background-color: #b9dfea;
     margin: 0;
 }
 
 div {
     border: 2px solid black;
-    background-color: red;
+    background-color: #b9dfea;
     margin: 10px;
 }
 
 a {
     text-decoration: none;
     color: black;
+}
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+#loggedInDiv
+{
+    font-size: 30px;
+    width: 30%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
 }
 
 #box1 {
@@ -21,15 +37,32 @@ a {
     justify-content: center;
     margin: 0;
 }
+#logoutButton{
+    width: 7%;
+    margin-left: 40%;
+}
+
 
 #left-picture-box {
     flex: 1;
+    flex-direction: row;
+    flex-wrap:wrap;
+
+    object-fit: contain;
+}
+
+
+
+#lace {
+    max-width: auto;
+    
 }
 
 #right-text-box {
     flex: 3;
     display: flex;
     flex-direction: column;
+    object-fit: contain;
 }
 
 #navigation-box {
@@ -97,7 +130,7 @@ a {
     display: flex;
     width: 100%;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
 }
 
 #table-body tr {
@@ -110,3 +143,5 @@ a {
     flex: 1;
     text-align: left;
 }
+
+
