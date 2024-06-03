@@ -1,32 +1,30 @@
 
 <?php
+	// Will be expecting the following fields: 
+	// "login" : "string",
+	// "password" : "string"
 
 	$inData = getRequestInfo();
-
-    $servername = "localhost"; 
-    $serverUser = "TheBeast"; 
-    $serverPass = "WeLoveCOP4331"; 
-    $dbname = "ContactManager";
 	
-	$ID = 0;
+	$id = 0;
 	$firstName = "";
 	$lastName = "";
 
-    $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
+	$conn = new mysqli("localhost", "Manager", "COP4331", "ContactManager"); 	
 	if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID,FirstName,LastName FROM Users WHERE Login=? AND Password =?");
+		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
 		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['FirstName'], $row['LastName'], $row['ID'] );
+			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
 		}
 		else
 		{
@@ -56,7 +54,7 @@
 	
 	function returnWithInfo( $firstName, $lastName, $id )
 	{
-		$retValue = '{"userID":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":"Success"}';
+		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

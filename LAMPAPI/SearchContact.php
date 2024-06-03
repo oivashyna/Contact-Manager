@@ -1,24 +1,23 @@
 <?php
-	$inData = getRequestInfo();
+	// Will be expecting the following fields: 
+	// "search" : "string",
+	// "userID" : int
 
-    $servername = "localhost"; 
-    $serverUser = "TheBeast"; 
-    $serverPass = "WeLoveCOP4331"; 
-    $dbname = "ContactManager";
+	$inData = getRequestInfo();
 	
 	$searchResults = "";
 	$searchCount = 0;
 
-    $conn = new mysqli($servername, $serverUser, $serverPass, $dbname);
+	$conn = new mysqli("localhost", "Manager", "COP4331", "ContactManager"); 	
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
 	} 
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ?) and UserID=?");
-		$contactName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("sss", $contactName, $contactName, $inData["userID"]);
+		$stmt = $conn->prepare("SELECT * from Contacts where (FirstName like ? OR LastName like ? OR EmailAddress like ?) and UserID=?");
+		$searchQuery = "%" . $inData["search"] . "%";
+		$stmt->bind_param("sssi", $searchQuery, $searchQuery, $searchQuery, $inData["userID"]);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
@@ -30,8 +29,8 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			// ID will be hidden
-			$searchResults .= '{"FirstName" : "' . $row["FirstName"]. '", "LastName" : "' . $row["LastName"]. '", "Phone" : "' . $row["Phone"]. '", "Email" : "' . $row["Email"]. '", "ID" : "' . $row["ID"].'"}';
+			$searchResults .= '{"FirstName" : "' . $row["FirstName"]. '", "LastName" : "' . $row["LastName"]. '", "PhoneNumber" : "' . $row["PhoneNumber"]. '", "EmailAddress" : "' . $row["EmailAddress"]. '", "UserID" : "' . $row["UserID"].'", "ID" : "' . $row["ID"]. '"}';
+			
 		}
 		
 		if( $searchCount == 0 )
