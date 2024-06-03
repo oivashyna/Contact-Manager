@@ -1,0 +1,140 @@
+body {
+    background-color: #b9dfea;
+    margin: 0;
+}
+
+div {
+    border: 2px solid black;
+    background-color: #b9dfea;
+    margin: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+
+
+#box1 {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    margin: 0;
+}
+#logoutButton{
+    width: 7%;
+    margin-left: 40%;
+}
+
+
+#left-picture-box {
+    flex: 1;
+    flex-direction: row;
+    flex-wrap:wrap;
+
+    object-fit: contain;
+}
+
+
+
+#lace {
+    max-width: auto;
+    
+}
+
+#right-text-box {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+}
+
+#navigation-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+#search-box {
+    min-width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#contact-search {
+    height: fit-content;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#add-box {
+    min-width: 5%;
+}
+
+#contacts-table-box {
+    display: flex;
+    flex: 20;
+}
+
+#contacts-table {
+    width: 100%;
+}
+
+#contacts {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#table-head {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+#table-head tr {
+    width: 100%;
+    display: flex;
+}
+
+
+#table-head th {
+    flex: 1;
+    text-align: left;
+}
+
+#table-body {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: left;
+}
+
+#table-body tr {
+    width: 100%;
+    display: flex;
+}
+
+
+#table-body td {
+    flex: 1;
+    text-align: left;
+}
+
+
