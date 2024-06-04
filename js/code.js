@@ -369,9 +369,9 @@ function searchContact() {
                         text += "<td id='lastName" + i + "'><span>" + jsonObject.results[i].LastName + "</span></td>";
                         text += "<td id='email" + i + "'><span>" + jsonObject.results[i].EmailAddress + "</span></td>";
                         text += "<td id='phone" + i + "'><span>" + jsonObject.results[i].PhoneNumber + "</span></td>";
-                        text += "<td><button id='edit_button" + i + "' class='edit-button' onclick='editContact(" + i + ")'>Edit</button>";
-                        text += "<button id='save_button" + i + "' class='edit-button' onclick='saveContact(" + i + ")' style='display:none;'>Save</button></td>";
-                        text += "<td><button class='delete_button' onclick='deleteContact(" + ids[i] + ")'>Delete</button></td>";
+                        text += "<td><button id='edit_button" + i + "' class='edit-button' ><img src= 'images/edit_button.png' width= '25' height= '25' alt= 'Edit button' onclick='editContact(" + i + ")'></button>";
+                        text += "<button id='save_button" + i + "' class='edit-button' style='display:none;'><img src= 'images/save button.png' width= '25' height= '25' alt= 'Save button'onclick='saveContact(" + i + ")' ></button></td>";
+                        text += "<td><button class='delete_button'> <img src= 'images/delete_button.png' width= '25' height= '25' alt= 'Delete button' onclick='deleteContact(" + ids[i] + ")'></button></td>";
                         text += "</tr>";
                     }
                     text += "</table>";
