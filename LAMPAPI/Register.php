@@ -1,9 +1,9 @@
 <?php
-   // Will be expecting the following fields: 
-   // "firstName" : "string",
-   // "lastName" : "string",
-   // "login" : "string",
-	 // "password" : "string"
+	// Will be expecting the following fields: 
+    // "firstName" : "string",
+    // "lastName" : "string",
+	// "login" : "string",
+	// "password" : "string"
 
 	$inData = getRequestInfo();
 	
